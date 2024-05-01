@@ -12,6 +12,12 @@ connect();
 
 // app.use("/users", userRoutes);
 
+app.use((req, res, next) => {
+  console.log("fet 3al IDP");
+  res.send("IDP is running");
+  //next();
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
