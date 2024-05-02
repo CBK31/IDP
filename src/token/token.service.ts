@@ -30,9 +30,20 @@ export const validateToken = async (req: Request, res: Response) => {
   }
 
   try {
-    const payload = verify(token, process.env.JWT_SECRET!) as CustomJwtPayload;
-    req.user = { id: payload.userId };
+    console.log("the sece key : " + process.env.JWT_SECRET_KEY);
+    const payload = verify(
+      token,
+      process.env.JWT_SECRET_KEY!
+    ) as CustomJwtPayload;
+    console.log("payload data : " + payload.userId);
+    res.data = payload;
+
+    //console.log("5allaset el payload step : " + req.user.id);
+    return res
+      .status(200)
+      .json({ message: "wsolet 3al function validateTokenw rje3et" });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: "Token validation failed" });
   }
 };

@@ -8,22 +8,22 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
-
+app.use(express.json());
 app.use(bodyParser.json());
 connect();
-
+// app.use((req, res, next) => {
+//   console.log("fet 3al IDP");
+//   res.status(200).json("re7et 3al IDP w rje3et ");
+//   //next();
+// });
 app.use("/token", tokenRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-//app.use(express.json());
-// // app.use((req, res, next) => {
-// //   console.log("fet 3al IDP");
-// //   res.send("IDP is running");
-// //   //next();
-// // });
+//
+
 // console.log("atta3et el IDp");
 // app.use("/", Routes);
 

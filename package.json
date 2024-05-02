@@ -14,7 +14,10 @@
       "src/**/*.ts"
     ],
     "ext": "ts",
-    "exec": "ts-node src/app.ts"
+    "exec": "ts-node src/app.ts",
+    "execMap": {
+      "ts": "TS_NODE_CACHE=false ts-node"
+    }
   },
   "keywords": [],
   "author": "",

@@ -8,6 +8,7 @@ const verifyTokenController = async (
   res: Response
 ): Promise<void> => {
   try {
+    console.log("fetit 3al verifyTokenController");
     await validateToken(req, res);
   } catch (error) {
     console.log(" exception handeling verifyTokenController ");
