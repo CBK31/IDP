@@ -7,8 +7,12 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "include": ["src/**/*.ts"],
+  "scripts": {
+    "dev": "nodemon --exec ts-node --project tsconfig.json src/app.ts"
+  },
+  "include": ["src/**/*.ts", "src/types/express.d.ts"],
   "exclude": ["node_modules"]
 }
