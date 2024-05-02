@@ -8,6 +8,7 @@ declare global {
     }
     export interface Response {
       user?: any;
+      data?: any;
     }
   }
 }

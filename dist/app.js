@@ -15,11 +15,11 @@ const PORT = process.env.PORT;
 app.use(express_1.default.json());
 app.use(body_parser_1.default.json());
 (0, database_1.connect)();
-// app.use((req, res, next) => {
-//   console.log("fet 3al IDP");
-//   res.status(200).json("re7et 3al IDP w rje3et ");
-//   //next();
-// });
+app.use((req, res, next) => {
+    console.log("fet 3al IDP");
+    res.status(200).json("re7et 3al IDP w rje3et ");
+    //next();
+});
 app.use("/token", token_routes_1.default);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
