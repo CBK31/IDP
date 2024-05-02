@@ -1,10 +1,10 @@
-const app = express();
 import express from "express";
 import { connect } from "./config/database";
 import tokenRoutes from "./token/token.routes";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-//app.use(express.json());
+const app = express();
+app.use(express.json());
 app.use(bodyParser.json());
 dotenv.config();
 connect();
