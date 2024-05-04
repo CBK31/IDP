@@ -14,12 +14,28 @@ app.use(body_parser_1.default.json());
 dotenv_1.default.config();
 (0, database_1.connect)();
 const PORT = process.env.PORT;
+// for testing only
 app.use((req, res, next) => {
-    console.log("fet 3al IDP");
-    res.status(200).json("re7et 3al IDP w rje3et ");
-    //next();
+    console.log("==============================fet 3al IDP=======================================");
+    // console.log(`
+    // req.originalUrl : ${req.originalUrl}
+    // headers: ${JSON.stringify(req.headers)},
+    // params: ${JSON.stringify(req.params)},
+    // body: ${JSON.stringify(req.body)},
+    // `);
+    //console.log(inspect(req));
+    next();
 });
-app.use("/token", token_routes_1.default);
+app.use("/", (req, res, next) => {
+    console.log("fetet 3al /token ");
+    next();
+}, token_routes_1.default);
+// for testing only
+// app.use((req, res, next) => {
+//   console.log("fet 3al IDP");
+//   res.status(200).json("re7et 3al IDP w rje3et ");
+//   //  next();
+// });
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
