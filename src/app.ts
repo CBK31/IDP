@@ -21,14 +21,15 @@ app.use((req, res, next) => {
   console.log(`
 
 
-  req.originalUrl : ${req.originalUrl}
+  req.originalUrl : ${req.originalUrl} 
+  req.baseUrl : ${JSON.stringify(req.baseUrl)},
   headers: ${JSON.stringify(req.headers)},
   params: ${JSON.stringify(req.params)},
   body: ${JSON.stringify(req.body)},
 
   
   `);
-
+  //return res.status(200).json("re7et 3al idp w rje3et ");
   //console.log(inspect(req));
   next();
 });
