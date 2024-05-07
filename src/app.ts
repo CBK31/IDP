@@ -34,23 +34,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  "/token",
-  (req, res, next) => {
-    console.log("fetet 3al /token bel IDP ");
-    next();
-  },
-  tokenRoutes
-);
+//  (req, res, next) => {
+//     console.log("fetet 3al /token bel IDP ");
+//     next();
+//   },
 
-app.use(
-  "/user",
-  (req, res, next) => {
-    console.log("fetet 3al /user bel IDP ");
-    next();
-  },
-  userRoutes
-);
+app.use("/token", tokenRoutes);
+
+app.use("/user", userRoutes);
 
 // for testing only
 // app.use((req, res, next) => {

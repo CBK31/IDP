@@ -2,17 +2,17 @@ import { Request, Response } from "express";
 
 import { validateToken } from "./token.service";
 import { stringify } from "querystring";
+import { ErrorHandler } from "../utils/errorHandler";
 
 const verifyTokenController = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    console.log("fetit 3al verifyTokenController");
-    await validateToken(req, res);
+    const result = await validateToken(req, res);
+    res.status(200).json(result);
   } catch (error) {
-    console.log(" exception handeling verifyTokenController ");
-    console.log("verifyTokenController error : " + error);
+    ErrorHandler.handle(error, res);
   }
 };
 

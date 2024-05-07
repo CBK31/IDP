@@ -1,46 +1,82 @@
-//   //   const token = jwt.sign({ email: email }, 'a_secret_key');
-//   //             res.status(200).json({ token: token });
-// };
-
 //import { inspect } from "util";
 import { verify, JwtPayload } from "jsonwebtoken";
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { findUserById } from "../user/user.service";
+import * as types from "../types/index";
+import { ErrorMessages } from "./exceptions";
+//import { ErrorMessages } from "../user/exceptions";
 
-interface CustomJwtPayload extends JwtPayload {
-  userId: string;
-}
+// lezim a3mou error message lal token cz now 3am besta3mil taba3 el user
+
+// interface userInfo extends JwtPayload {
+//   userId: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   dob: Date;
+// }
+
+export const generateTokenWithUserInfo = async (
+  userInfo: types.tokenUserInfo
+) => {
+  const toSign: types.userInfoToSign = {
+    exp: Math.floor(Date.now() / 1000) + 60 * 20,
+    _id: userInfo._id,
+    dob: userInfo.dob,
+  };
+
+  const token = jwt.sign(JSON.stringify(toSign), process.env.JWT_SECRET_KEY!);
+  return token;
+};
+
+export const getUserTokenPayload = async (token: any) => {
+  return verify(
+    token,
+    process.env.JWT_SECRET_KEY!
+  ) as any as types.userInfoToSign;
+};
 
 export const validateToken = async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ error: "Token is missing" });
+    throw ErrorMessages.noAuthTokenProvided;
   }
 
-  try {
-    const payload = verify(
-      token,
-      process.env.JWT_SECRET_KEY!
-    ) as CustomJwtPayload;
+  const payload = await getUserTokenPayload(token);
 
-    if (!payload) {
-      console.log("error handling : ma fi payload");
-      return res.status(400).json("re7et 3al IDP w rje3et BAS MA L2IT PAYLOAD");
-    }
-
-    console.log("payload data : " + JSON.stringify(payload));
-
-    const responseBody = {
-      message: "wsolet 3al function validate Token w rje3et",
-      userId: payload.userId,
-    };
-
-    return res.status(200).json(responseBody);
-    // headers: {
-    //   'Authorization': token
-    // }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Token validation failed" });
+  if (!payload) {
+    throw ErrorMessages.invalidAuthToken;
   }
+
+  const userFinder = (await findUserById(payload._id)) as types.userObject;
+
+  if (!userFinder) {
+    throw ErrorMessages.tokenInfoMismatch;
+  }
+
+  /////////////////////////////////////////////////////////////
+  // EZA BEDDE RED TOKEN FIYO EL USER INFO HONE :
+
+  const { _id, dob } = userFinder;
+  const tokenUserInfoToSign: types.tokenUserInfo = { _id, dob };
+  const tokenToSend = await generateTokenWithUserInfo(tokenUserInfoToSign);
+
+  const responseBody = {
+    token: tokenToSend,
+    message: "User successfully authenticated.",
+  };
+
+  //////////////////////////////////////////////////////////////
+  console.log("payload data FROM TOOKEN SERVICES : " + JSON.stringify(payload));
+  // EZA MA BEDDE RED HEL TOKEN LI FIYO EL USER INFO
+
+  // const responseBody = {
+  //   message: "User successfully authenticated.",
+  // };
+
+  //////////////////////////////////////////////////////////////
+  return responseBody;
+  // return res.status(200).json(responseBody);
 };
