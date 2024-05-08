@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import * as UserService from "./user.service";
 import { signinDto } from "./user.dto/signin.dto";
 import { signupDto } from "./user.dto/signup.dto";
-import { CustomError } from "./exceptions";
+//import { CustomError } from "./exceptions";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -18,7 +18,7 @@ export const signIn = async (req: Request, res: Response) => {
   try {
     const result = await UserService.signIn(req.body as signinDto);
     res.status(200).send(result);
-  } catch (error) {
+  } catch (error: any) {
     ErrorHandler.handle(error, res);
   }
 };

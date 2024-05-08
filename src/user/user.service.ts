@@ -1,10 +1,11 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+//import jwt from "jsonwebtoken";
 import User from "./user.model";
 import { ErrorMessages } from "./exceptions";
 import { signinDto } from "./user.dto/signin.dto";
 import { signupDto } from "./user.dto/signup.dto";
-import { verify, JwtPayload } from "jsonwebtoken";
+import { CustomError } from "./exceptions";
+//import { verify, JwtPayload } from "jsonwebtoken";
 import {
   generateTokenWithUserInfo,
   getUserTokenPayload,
