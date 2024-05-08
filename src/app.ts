@@ -36,5 +36,5 @@ app.use("/token", tokenRoutes);
 app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`IDP service running on port ${PORT}`);
 });
