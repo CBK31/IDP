@@ -3,7 +3,7 @@ import User from "./user.model";
 import { ErrorMessages } from "./exceptions";
 import { signinDto } from "./user.dto/signin.dto";
 import { signupDto } from "./user.dto/signup.dto";
-
+import { editProfileDto } from "./user.dto/editProfile.dto";
 import {
   generateTokenWithUserInfo,
   getUserTokenPayload,
@@ -86,29 +86,18 @@ export const viewProfile = async (header: any) => {
   };
 };
 
-export const editProfile = async (body: any) => {
-  //  // Fetch the user by ID
-  //  const user = await UserModel.findById(userId);
-  //  if (!user) {
-  //      throw new Error('User not found');
-  //  }
-  //  // Update the user fields that are allowed to be updated
-  //  if (editUserDto.firstName) user.firstName = editUserDto.firstName;
-  //  if (editUserDto.lastName) user.lastName = editUserDto.lastName;
-  //  if (editUserDto.dateOfBirth) user.dateOfBirth = editUserDto.dateOfBirth;
-  //  // Save the updated user
-  //  await user.save();
-  //  // Return the updated user data or a success message
-  //  return { message: "Profile updated successfully", user };
-  // } catch (error) {
-  //  // Log the error or handle it as needed
-  //  console.error('Failed to update user profile:', error);
-  //  throw error; // Rethrow or handle as needed
-  // }
-};
+export const editProfile = async (body: editProfileDto, header: any) => {
+  const token = header.split(" ")[1];
+  const payload = await getUserTokenPayload(token);
+  let user = await findUserById(payload._id);
+  const {} = body;
 
-// const editUserSchema = Joi.object({
-//   firstName: Joi.string().alphanumeric().min(3).max(30),
-//   lastName: Joi.string().alphanumeric().min(3).max(30),
-//   dateOfBirth: Joi.date().less('now')
-// });
+  if (body.firstName) user.firstName = body.firstName;
+  if (body.lastName) user.lastName = body.lastName;
+  if (body.dob) user.dob = body.dob;
+  if (body.email) user.email = body.email;
+
+  await new userModel(user).save();
+
+  return { message: "Profile updated successfully" };
+};
