@@ -1,21 +1,10 @@
 //import { inspect } from "util";
-import { verify, JwtPayload } from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { findUserById } from "../user/user.service";
 import * as types from "../types/index";
 import { ErrorMessages } from "./exceptions";
-//import { ErrorMessages } from "../user/exceptions";
-
-// lezim a3mou error message lal token cz now 3am besta3mil taba3 el user
-
-// interface userInfo extends JwtPayload {
-//   userId: string;
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   dob: Date;
-// }
 
 export const generateTokenWithUserInfo = async (
   userInfo: types.tokenUserInfo
@@ -37,8 +26,8 @@ export const getUserTokenPayload = async (token: any) => {
   ) as any as types.userInfoToSign;
 };
 
-export const validateToken = async (req: Request, res: Response) => {
-  const token = req.headers.authorization?.split(" ")[1];
+export const validateToken = async (authentications: any) => {
+  const token = authentications?.split(" ")[1];
 
   if (!token) {
     throw ErrorMessages.noAuthTokenProvided;
@@ -65,7 +54,7 @@ export const validateToken = async (req: Request, res: Response) => {
     message: "User successfully authenticated.",
   };
 
-  console.log("payload data FROM TOOKEN SERVICES : " + JSON.stringify(payload));
+  // console.log("payload data FROM TOOKEN SERVICES : " + JSON.stringify(payload));
 
   return responseBody;
 };

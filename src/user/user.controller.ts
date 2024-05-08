@@ -1,6 +1,7 @@
 import { ErrorHandler } from "../utils/errorHandler";
 import { Request, Response } from "express";
 import * as UserService from "./user.service";
+import { types } from "joi";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -33,7 +34,7 @@ export const viewProfile = async (req: Request, res: Response) => {
   try {
     const result = await UserService.viewProfile(req.headers.authorization);
     res.status(200).send(result);
-  } catch (error) {
+  } catch (error: any) {
     ErrorHandler.handle(error, res);
   }
 };

@@ -1,9 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "./user.model";
 import { ErrorMessages } from "./exceptions";
-import { signinDto } from "./user.dto/signin.dto";
-import { signupDto } from "./user.dto/signup.dto";
-import { editProfileDto } from "./user.dto/editProfile.dto";
+
 import {
   generateTokenWithUserInfo,
   getUserTokenPayload,
@@ -21,7 +19,7 @@ const findUserByEmail = async (email: string): Promise<types.userObject> => {
   return User.findOne({ email: email });
 };
 
-export const signUp = async (body: signupDto) => {
+export const signUp = async (body: types.signup) => {
   const { firstName, lastName, email, password, dob } = body;
 
   const userFinder = await findUserByEmail(email);
@@ -47,7 +45,7 @@ export const signUp = async (body: signupDto) => {
   return responseBody;
 };
 
-export const signIn = async (body: signinDto) => {
+export const signIn = async (body: types.signin) => {
   const { email: bodyEmail, password } = body;
 
   const user = await findUserByEmail(bodyEmail);
@@ -86,7 +84,7 @@ export const viewProfile = async (header: any) => {
   };
 };
 
-export const editProfile = async (body: editProfileDto, header: any) => {
+export const editProfile = async (body: types.editProfile, header: any) => {
   const token = header.split(" ")[1];
   const payload = await getUserTokenPayload(token);
   let user = await findUserById(payload._id);

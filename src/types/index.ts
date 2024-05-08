@@ -1,6 +1,4 @@
-import { signupDto } from "../user/user.dto/signup.dto";
-
-export interface userObject extends signupDto {
+export interface userObject extends signup {
   _id: string;
 }
 
@@ -11,4 +9,22 @@ export interface tokenUserInfo {
 
 export interface userInfoToSign extends tokenUserInfo {
   exp: Number;
+}
+
+export class editProfile {
+  firstName!: string;
+  lastName!: string;
+  email!: string;
+  dob!: Date;
+}
+export class signin {
+  email!: string;
+  password!: string;
+}
+export class signup {
+  firstName!: string;
+  lastName!: string;
+  email!: string;
+  password!: string;
+  dob!: Date;
 }

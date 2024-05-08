@@ -9,7 +9,7 @@ const verifyTokenController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const result = await validateToken(req, res);
+    const result = await validateToken(req.headers.authorization);
     res.status(200).json(result);
   } catch (error) {
     ErrorHandler.handle(error, res);
