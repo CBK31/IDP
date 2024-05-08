@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import * as UserService from "./user.service";
 import { signinDto } from "./user.dto/signin.dto";
 import { signupDto } from "./user.dto/signup.dto";
-//import { CustomError } from "./exceptions";
 
 export const signUp = async (req: Request, res: Response) => {
   try {

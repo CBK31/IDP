@@ -56,9 +56,6 @@ export const validateToken = async (req: Request, res: Response) => {
     throw ErrorMessages.tokenInfoMismatch;
   }
 
-  /////////////////////////////////////////////////////////////
-  // EZA BEDDE RED TOKEN FIYO EL USER INFO HONE :
-
   const { _id, dob } = userFinder;
   const tokenUserInfoToSign: types.tokenUserInfo = { _id, dob };
   const tokenToSend = await generateTokenWithUserInfo(tokenUserInfoToSign);
@@ -68,15 +65,7 @@ export const validateToken = async (req: Request, res: Response) => {
     message: "User successfully authenticated.",
   };
 
-  //////////////////////////////////////////////////////////////
   console.log("payload data FROM TOOKEN SERVICES : " + JSON.stringify(payload));
-  // EZA MA BEDDE RED HEL TOKEN LI FIYO EL USER INFO
 
-  // const responseBody = {
-  //   message: "User successfully authenticated.",
-  // };
-
-  //////////////////////////////////////////////////////////////
   return responseBody;
-  // return res.status(200).json(responseBody);
 };
