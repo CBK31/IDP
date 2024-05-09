@@ -8,5 +8,5 @@ const userSchema = new schema({
   password: { type: String, required: true },
   dob: { type: Date, required: true },
 });
-
+userSchema.index({ email: 1 });
 export default mongoose.model("User", userSchema);
