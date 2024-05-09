@@ -5,7 +5,6 @@ import {
   signinSchema,
   editProfileSchema,
 } from "./user.validationSchemas";
-//import { signIn, signUp, viewProfile, editProfile } from "./user.controller";
 import * as UserController from "./user.controller";
 
 const router = express.Router();
@@ -19,9 +18,3 @@ router.patch(
   UserController.editProfile
 );
 export default router;
-
-// router.post("/signup", signUp);
-// router.post("/signin", signIn);
-// router.get("/profile/view", viewProfile);
-// router.patch("/profile/edit", editProfile);
-// export default router;

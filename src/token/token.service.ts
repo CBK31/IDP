@@ -1,6 +1,4 @@
-//import { inspect } from "util";
 import { verify } from "jsonwebtoken";
-import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { findUserById } from "../user/user.service";
 import * as types from "../types/index";
@@ -53,8 +51,6 @@ export const validateToken = async (authentications: any) => {
     token: tokenToSend,
     message: "User successfully authenticated.",
   };
-
-  // console.log("payload data FROM TOOKEN SERVICES : " + JSON.stringify(payload));
 
   return responseBody;
 };

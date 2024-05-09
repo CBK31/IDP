@@ -1,7 +1,6 @@
 import { ErrorHandler } from "../utils/errorHandler";
 import { Request, Response } from "express";
 import * as UserService from "./user.service";
-import { types } from "joi";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -11,15 +10,6 @@ export const signUp = async (req: Request, res: Response) => {
     ErrorHandler.handle(error, res);
   }
 };
-
-// export const signUp = async (req: Request, res: Response) => {
-//   try {
-//     const result = await UserService.signUp(req.body as signupDto);
-//     res.status(201).json(result);
-//   } catch (error: any) {
-//     ErrorHandler.handle(error, res);
-//   }
-// };
 
 export const signIn = async (req: Request, res: Response) => {
   try {

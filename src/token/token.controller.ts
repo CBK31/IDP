@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-
 import { validateToken } from "./token.service";
-import { stringify } from "querystring";
 import { ErrorHandler } from "../utils/errorHandler";
 
 const verifyTokenController = async (

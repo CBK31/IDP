@@ -14,20 +14,6 @@ connect();
 const PORT = process.env.PORT;
 
 app.use((req, res, next) => {
-  console.log(`
-
-
- "============================== fet 3al IDP ======================================="
-
-
-  req.originalUrl : ${req.originalUrl} 
-  req.baseUrl : ${JSON.stringify(req.baseUrl)},
-  headers: ${JSON.stringify(req.headers)},
-  params: ${JSON.stringify(req.params)},
-  body: ${JSON.stringify(req.body)},
-
-  
-  `);
   next();
 });
 
